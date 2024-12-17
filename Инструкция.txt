@@ -1,0 +1,92 @@
+Для создания простого приложения на Python с интерфейсом Tkinter и подключением к C (например, для выполнения определенных вычислений или обработки данных), можно использовать библиотеку ctypes или cffi для взаимодействия между Python и C. 
+
+Шаги для создания приложения:
+
+1. Создание библиотеки на C:
+   Напишите простой код на C и скомпилируйте его в динамическую библиотеку (например, mylib.so на Linux или mylib.dll на Windows).
+
+   Пример кода на C (файл mylib.c):
+
+C
+
+
+      #include <stdio.h>
+
+   void hello() {
+       printf("Hello from C!\n");
+   }
+   
+
+   Скомпилируйте его:
+
+Bash
+
+
+      gcc -shared -o mylib.so -fPIC mylib.c
+   
+
+2. Создание интерфейса на Tkinter:
+   Напишите приложение на Python с использованием Tkinter, которое будет вызывать функции из вашей библиотеки на C.
+
+   Пример кода на Python:
+
+Python
+
+
+      import tkinter as tk
+   import ctypes
+
+   # Загрузка библиотеки
+   mylib = ctypes.CDLL('./mylib.so')
+
+   def call_c_function():
+       mylib.hello()
+
+   # Создание основного окна
+   root = tk.Tk()
+   root.title("Tkinter and C Example")
+
+   # Кнопка для вызова функции из C
+   button = tk.Button(root, text="Call C Function", command=call_c_function)
+   button.pack(pady=20)
+
+   # Запуск основного цикла приложения
+   root.mainloop()
+   
+
+Подключение к базе данных:
+
+Если вам нужно подключиться к базе данных, например, SQLite, это можно сделать с помощью встроенной библиотеки sqlite3.
+
+Пример подключения к базе данных SQLite:
+
+Python
+
+
+import sqlite3
+
+# Создание подключения к базе данных
+conn = sqlite3.connect('example.db')
+
+# Создание курсора для выполнения SQL-запросов
+cursor = conn.cursor()
+
+# Пример создания таблицы
+cursor.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)''')
+
+# Пример вставки данных
+cursor.execute("INSERT INTO users (name) VALUES ('Zhenya')")
+conn.commit()
+
+# Пример выборки данных
+cursor.execute("SELECT * FROM users")
+print(cursor.fetchall())
+
+# Закрытие соединения
+conn.close()
+
+
+Вывод:
+
+Таким образом, вы можете создать простое приложение на Python с интерфейсом Tkinter и подключением к библиотеке на C, а также использовать SQLite для работы с базой данных.
+
